@@ -1,0 +1,183 @@
+import React, { useContext, useMemo } from "react";
+import {
+  FormField,
+  Box,
+  Text,
+  Layer,
+  ResponsiveContext,
+  TextArea
+} from "grommet";
+import PropTypes from "prop-types";
+import { Formik } from "formik";
+import * as Yup from "yup";
+
+import UploadComponent from "./UploadComponent";
+import { getCroppedImg, LayerFooter, LayerHeader } from "./utils";
+
+const UploadFile = ({
+  setLayer,
+  eventEmitter,
+  uploadFile,
+  accept,
+  title,
+  imageCropAspect,
+  showAddNotes,
+  initialNote,
+  ...rest
+}) => {
+  const size = useContext(ResponsiveContext);
+  // Define file types in string
+  const fileTypes = useMemo(() => {
+    let string = `${accept}`;
+    string = string.toUpperCase().split(",").join(" ");
+    if (string.length < 1) string = "All.";
+    return string;
+  }, [accept]);
+
+  //TODO - complete this
+  const onSubmit = async (values, { setSubmitting, setErrors }) => {
+    setErrors({});
+    setSubmitting(true);
+    try {
+      // console.log('values', values);
+      // TODO: cleanup
+      if (imageCropAspect) {
+        getCroppedImg(
+          values.imageRef,
+          values.croppedAreaPixels,
+          values.file_name,
+          async (croppedImage) => {
+            let obj = {
+              ...values,
+              files: [croppedImage]
+            };
+            setSubmitting(true);
+            console.log("obj", obj);
+            await uploadFile(eventEmitter, obj);
+            setSubmitting(false);
+          }
+        );
+      } else {
+        await uploadFile(eventEmitter, values);
+      }
+    } catch (e) {
+      console.log(e);
+      if (e.errors) setErrors(e.errors);
+    }
+    setSubmitting(false);
+  };
+
+  const validationSchema = Yup.object().shape({
+    // file_name: Yup.string().required('File Name is required'),
+  });
+
+  return (
+    <Layer
+      position="center"
+      onClickOutside={() => setLayer(false)}
+      onEsc={() => setLayer(false)}
+      margin="medium"
+    >
+      <Box width={size !== "small" ? "38rem" : "100%"}>
+        <LayerHeader title={title} setLayer={setLayer} />
+        <hr
+          style={{ borderColor: "#ec4523", height: "0.1px", width: "100%" }}
+        />
+        <Box overflow={{ vertical: "auto", horizontal: "hidden" }}>
+          <Formik
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+            initialValues={{
+              files: [],
+              file_name: "",
+              ext: "",
+              croppedAreaPixels: {},
+              note: initialNote || ""
+            }}
+            enableReinitialize={true}
+          >
+            {({
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              isSubmitting,
+              setFieldValue
+            }) => (
+              <form onSubmit={handleSubmit}>
+                <Text as="div" color="status-critical">
+                  {errors.title}
+                </Text>
+                <Box pad={{ vertical: "medium", horizontal: "large" }}>
+                  <Box margin={{ bottom: "medium" }}>
+                    <Text size="10px" margin={{ bottom: "medium" }}>
+                      Accepted file types are: {fileTypes}
+                    </Text>{" "}
+                    {/* Rejections are displayed here */}
+                    <UploadComponent
+                      fileTypes={fileTypes}
+                      accept={accept}
+                      imageCropAspect={imageCropAspect}
+                      {...rest}
+                    />
+                  </Box>
+                  {showAddNotes && (
+                    <Box>
+                      <FormField
+                        name="note"
+                        error={touched.note && errors.note}
+                      >
+                        <Box height="small" margin={{ top: "small" }}>
+                          <TextArea
+                            fill
+                            plain
+                            name="note"
+                            resize={false}
+                            placeholder="Type here to add notes"
+                            value={values.note}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          />
+                        </Box>
+                      </FormField>
+                    </Box>
+                  )}
+                  <LayerFooter
+                    setLayer={setLayer}
+                    errors={errors}
+                    files={values.files}
+                    isSubmitting={isSubmitting}
+                  />
+                </Box>
+              </form>
+            )}
+          </Formik>
+        </Box>
+      </Box>
+    </Layer>
+  );
+};
+
+UploadFile.propTypes = {
+  accept: PropTypes.string,
+  title: PropTypes.string,
+  uploadFile: PropTypes.func,
+  imageCropAspect: PropTypes.number,
+  showAddNotes: PropTypes.bool,
+  initialNote: PropTypes.string,
+  setLayer: PropTypes.func,
+  eventEmitter: PropTypes.object
+};
+
+UploadFile.defaultProps = {
+  accept: "",
+  title: "Upload File",
+  uploadFile: () => alert("FORM SuBMIT"),
+  imageCropAspect: null,
+  showAddNotes: false,
+  initialNote: ""
+};
+
+export default UploadFile;
