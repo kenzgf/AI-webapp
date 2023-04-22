@@ -13,7 +13,7 @@ CORS(app)
 
 @app.route("/")
 def entry():
-    return render_template('static/index.html')
+    return render_template('index.html')
 
 @app.route("/image", methods=['POST'])
 def model():
