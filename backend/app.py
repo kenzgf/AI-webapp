@@ -69,6 +69,7 @@ def model():
     image = image.resize((IMG_WIDTH, IMG_HEIGHT))
     img = tf.keras.preprocessing.image.img_to_array(image)
     if img[0][0].size == 1: img = np.repeat(img, 3, axis=2)
+    elif img[0][0].size > 3: img = img[..., :3]
     img_array = tf.keras.applications.densenet.preprocess_input(img)
 
     # Create an instance of ImageDataGenerator with the desired data augmentation parameters
