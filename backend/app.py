@@ -6,14 +6,14 @@ from flask_cors import CORS
 from PIL import Image
 import io
 
-app = Flask(__name__, static_folder='build/static')
+app = Flask(__name__, static_folder='frontend/build/static')
 CORS(app)
 
 # img = request.files['file']
 
 @app.route("/")
 def entry():
-    return send_file('build/index.html')
+    return send_file('frontend/build/index.html')
 
 @app.route("/image", methods=['POST'])
 def model():
