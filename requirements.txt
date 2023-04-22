@@ -38,7 +38,7 @@ Jinja2==3.1.2
 joblib==1.2.0
 jsonpatch==1.32
 jsonpointer==2.0
-keras==2.12.0
+keras==2.8.0
 kiwisolver==1.4.4
 Markdown==3.4.3
 MarkupSafe==2.1.2
