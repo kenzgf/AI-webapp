@@ -1,1 +1,5 @@
 # AI-webapp
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hi! This is Gefei Zhu and this is my fun little webapp that allows the user to upload an image of a person and get a prediction of which of the seven emotions the person exhibits. The seven emotions are: Anger, Disgust, Fear, Happy, Neutral, Sadness, and Surprise, represented by the seven emojis: 👿, 🤢, 😱, 😊, 😐, 😔, 😲.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This app is implemented using tensorflow's CNN architecture DenseNet169 as the input layer, combined with 3 layers of size 256, 1024, and 512, activated by the ReLU function and dropout between layers of 30%, 50%, and 50%. The loss function used is categorical cross-entropy.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The training data I used is the FER2013 dataset, consisting of 35,685 examples of 48x48 pixel gray scale images displaying the 7 emotions. When you are ready, click the purple button above and upload an image of your choice.<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Have fun playing with it!
