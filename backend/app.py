@@ -6,7 +6,7 @@ from flask_cors import CORS
 from PIL import Image
 import io
 
-app = Flask(__name__, static_folder='frontend/build/static')
+app = Flask(__name__, static_folder='build/static')
 CORS(app)
 
 # img = request.files['file']
