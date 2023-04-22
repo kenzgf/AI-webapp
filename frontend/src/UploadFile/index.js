@@ -15,7 +15,7 @@ import UploadComponent from "./UploadComponent";
 import { getCroppedImg, LayerFooter, LayerHeader, Popup } from "./utils";
 import axios from "axios";
 
-const rootURL = 'http://127.0.0.1:5000';
+const rootURL = process.env.PORT;
 const emojis = ["👿", "🤢" , "😱" , "😊" , "😐 ", "😔" , "😲" ];
 function indexOfGreatest(arr) {
   let ret = 0;
