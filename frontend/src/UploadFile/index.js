@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import {
   FormField,
   Box,
@@ -12,8 +12,22 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 
 import UploadComponent from "./UploadComponent";
-import { getCroppedImg, LayerFooter, LayerHeader } from "./utils";
+import { getCroppedImg, LayerFooter, LayerHeader, Popup } from "./utils";
+import axios from "axios";
 
+const rootURL = 'http://127.0.0.1:5000';
+const emojis = ["👿", "🤢" , "😱" , "😊" , "😐 ", "😔" , "😲" ];
+function indexOfGreatest(arr) {
+  let ret = 0;
+  let g = 0;
+  for (let i = 0; i < 7; i++) {
+    if (arr[i] > g) {
+      ret = i;
+      g = arr[i];
+    }
+  }
+  return ret;
+}
 const UploadFile = ({
   setLayer,
   eventEmitter,
@@ -39,29 +53,23 @@ const UploadFile = ({
     setErrors({});
     setSubmitting(true);
     try {
-      // console.log('values', values);
-      // TODO: cleanup
-      if (imageCropAspect) {
-        getCroppedImg(
-          values.imageRef,
-          values.croppedAreaPixels,
-          values.file_name,
-          async (croppedImage) => {
-            let obj = {
-              ...values,
-              files: [croppedImage]
-            };
-            setSubmitting(true);
-            console.log("obj", obj);
-            await uploadFile(eventEmitter, obj);
-            setSubmitting(false);
-          }
-        );
-      } else {
-        await uploadFile(eventEmitter, values);
-      }
+      const formData = new FormData();
+      formData.append('image', values.files[0]);
+      const response = await axios.post(`${rootURL}/image`, formData);
+      const pred = response.data.prediction[0];
+      alert('This person is ' + emojis[indexOfGreatest(pred)] + '!\n' + 
+            'In case this prediction is wrong, here is what the model actually outputted:\n' + 
+            emojis[0] + ': ' + Number(pred[0]*100).toFixed(2) + '%\n' + 
+            emojis[1] + ': ' + Number(pred[1]*100).toFixed(2) + '%\n' + 
+            emojis[2] + ': ' + Number(pred[2]*100).toFixed(2) + '%\n' + 
+            emojis[3] + ': ' + Number(pred[3]*100).toFixed(2) + '%\n' + 
+            emojis[4] + ': ' + Number(pred[4]*100).toFixed(2) + '%\n' + 
+            emojis[5] + ': ' + Number(pred[5]*100).toFixed(2) + '%\n' + 
+            emojis[6] + ': ' + Number(pred[6]*100).toFixed(2) + '%\n');
+
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
+      alert('Something went wrong... Please check your input and try again!')
       if (e.errors) setErrors(e.errors);
     }
     setSubmitting(false);

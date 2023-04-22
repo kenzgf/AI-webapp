@@ -1,6 +1,7 @@
 import { Box, Button, Card, CardBody, Image, Text, Video } from "grommet";
 import { Close, Upload, Validate } from "grommet-icons";
 import styled from "styled-components";
+import React, { useState } from 'react';
 
 const Container = styled(Box)`
   display: flex;
@@ -225,6 +226,27 @@ const FileList = ({ files, removeFile, setFieldValue }) => {
   );
 };
 
+function Popup(props) {
+  const [isOpen, setIsOpen] = useState(true);
+
+  function handleClose() {
+    setIsOpen(false);
+  }
+
+  if (!isOpen) {
+    return null; // if the popup is closed, don't render anything
+  }
+
+  return (
+    <div className="popup">
+      <div className="popup-content">
+        <div className="popup-text">{props}</div>
+        <button className="popup-close" onClick={handleClose}>Close</button>
+      </div>
+    </div>
+  );
+}
+
 export {
   dataURLtoFile,
   getCroppedImg,
@@ -236,5 +258,6 @@ export {
   LayerHeader,
   UploadingBox,
   UploadZone,
-  VideoPreview
+  VideoPreview,
+  Popup
 };

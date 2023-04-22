@@ -85,7 +85,6 @@ const UploadComponent = ({
       );
     }
   };
-
   return (
     <>
       {validationError.length > 0 && (
@@ -116,7 +115,6 @@ const UploadComponent = ({
               label="File Name"
               error={touched.file_name && errors.file_name}
               width="100%"
-              pad={{ bottom: "small" }}
             >
               <TextInput
                 name={"file_name"}
