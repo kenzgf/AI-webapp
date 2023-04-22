@@ -86,7 +86,6 @@ scipy==1.10.1
 seaborn==0.12.2
 setuptools==67.6.1
 six==1.16.0
-sklearn
 stack-data==0.6.2
 statsmodels==0.13.5
 tenacity==8.2.2
