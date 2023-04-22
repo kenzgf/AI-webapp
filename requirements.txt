@@ -46,7 +46,7 @@ matplotlib==3.7.1
 matplotlib-inline==0.1.6
 ml-dtypes==0.1.0
 munkres==1.1.4
-numpy==1.24.2
+numpy
 oauthlib==3.2.2
 opt-einsum==3.3.0
 packaging==23.1
