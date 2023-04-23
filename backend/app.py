@@ -6,12 +6,27 @@ from flask_cors import CORS
 from PIL import Image
 import io
 
-app = Flask(__name__, static_url_path='', static_folder='frontend/build')
+app = Flask(__name__, static_folder='frontend/build')
 CORS(app)
 
 @app.route("/")
 def entry():
     with open('frontend/build/index.html') as f:
+        return f.read()
+
+@app.route("/static/js/main.0976a078.js")
+def entry():
+    with open('frontend/build/static/js/main.0976a078.js') as f:
+        return f.read()
+    
+@app.route("/static/css/main.0976a078.js")
+def entry():
+    with open('frontend/build/static/css/main.bd405a6d.css') as f:
+        return f.read()
+
+@app.route("/manifest.json")
+def entry():
+    with open('frontend/build/manifest.json') as f:
         return f.read()
 
 @app.route("/image", methods=['POST'])
