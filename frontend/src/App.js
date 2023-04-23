@@ -7,7 +7,7 @@ export default function App() {
   return (
     <div className="App">
       <Grommet full>
-        <Button label="click to start" onClick={() => showUpload(true)} primary />
+        <Button style={{marginTop: 25}}label="click to start" onClick={() => showUpload(true)} primary />
         <div style={{width: '42%', position: 'relative', left: '28.5%'}}>
           <h4>Hi! This is Gefei Zhu and this is my fun little webapp that allows the user to upload an image of a person and get a prediction of which of the seven emotions the person exhibits. The seven emotions are: Anger, Disgust, Fear, Happy, Neutral, Sadness, and Surprise, represented by the seven emojis: 👿, 🤢, 😱, 😊, 😐, 😔, 😲.</h4>
           <h4>This app is implemented using tensorflow's CNN architecture DenseNet169 as the input layer, combined with 3 layers of size 256, 1024, and 512, activated by the ReLU function and dropout between layers of 30%, 50%, and 50%. The loss function used is categorical cross-entropy.</h4>
