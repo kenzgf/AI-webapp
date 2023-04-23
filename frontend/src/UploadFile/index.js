@@ -55,7 +55,7 @@ const UploadFile = ({
     try {
       const formData = new FormData();
       formData.append('image', values.files[0]);
-      const response = await axios.post(`/image`, formData);
+      const response = await axios.post(`${rootURL}/image`, formData);
       const pred = response.data.prediction[0];
       alert('This person is ' + emojis[indexOfGreatest(pred)] + '!\n' + 
             'In case this prediction is wrong, here is what the model actually outputted:\n' + 
