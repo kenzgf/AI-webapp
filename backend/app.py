@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify
 import numpy as np
 import os
 import tensorflow as tf
@@ -6,14 +6,12 @@ from flask_cors import CORS
 from PIL import Image
 import io
 
-app = Flask(__name__, static_folder='frontend/build')
+app = Flask(__name__, static_folder='../frontend/build/', static_url_path='/')
 CORS(app)
 
 @app.route("/")
 def entry():
-    with open('frontend/build/index.html') as f:
-        return f.read()
-
+    return app.send_static_file('index.html')
 
 @app.route("/image", methods=['POST'])
 def model():

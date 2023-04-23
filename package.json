@@ -15,10 +15,8 @@
     "yup": "^1.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "PUBLIC_URL=/frontend/ react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "gunicorn backend.app:app",
+    "build": "cd frontend && npm run build"
   },
   "eslintConfig": {
     "extends": [
