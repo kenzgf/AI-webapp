@@ -24,10 +24,6 @@ def entry():
     with open('frontend/build/static/css/main.bd405a6d.css') as f:
         return f.read()
 
-@app.route("/manifest.json")
-def entry():
-    with open('frontend/build/manifest.json') as f:
-        return f.read()
 
 @app.route("/image", methods=['POST'])
 def model():
