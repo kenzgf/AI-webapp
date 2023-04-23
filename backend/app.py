@@ -9,10 +9,8 @@ import io
 app = Flask(__name__, static_url_path='', static_folder='frontend/build')
 CORS(app)
 
-# img = request.files['file']
-
-@app.route("/")
-def entry():
+@app.route("/", defaults={'path':''})
+def entry(path):
     return send_from_directory(app.static_folder,'index.html')
 
 @app.route("/image", methods=['POST'])
