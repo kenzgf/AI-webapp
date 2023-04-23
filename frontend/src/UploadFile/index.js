@@ -15,7 +15,7 @@ import UploadComponent from "./UploadComponent";
 import { getCroppedImg, LayerFooter, LayerHeader, Popup } from "./utils";
 import axios from "axios";
 
-const rootURL = process.env.PORT;
+const rootURL = "https://ai-webapp.herokuapp.com";
 const emojis = ["👿", "🤢" , "😱" , "😊" , "😐 ", "😔" , "😲" ];
 function indexOfGreatest(arr) {
   let ret = 0;
