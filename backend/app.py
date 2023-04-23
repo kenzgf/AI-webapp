@@ -50,7 +50,7 @@ def model():
         classification_output = final_model(inputs) 
         model = tf.keras.Model(inputs=inputs, outputs = classification_output)
         
-        model.compile(optimizer=tf.keras.optimizers.legacy.SGD(0.1), 
+        model.compile(optimizer=tf.keras.optimizers.SGD(0.1), 
                     loss='categorical_crossentropy',
                     metrics = ['accuracy'])
 
