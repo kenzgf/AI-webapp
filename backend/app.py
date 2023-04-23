@@ -58,7 +58,7 @@ def model():
 
     model = define_compile_model()
 
-    checkpoint_path = "training_1/cp.ckpt"
+    checkpoint_path = "../backend/training_1/cp.ckpt"
     checkpoint_dir = os.path.dirname(checkpoint_path)
     latest = tf.train.latest_checkpoint(checkpoint_dir)
     model.load_weights(latest)
