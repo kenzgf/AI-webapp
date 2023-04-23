@@ -9,9 +9,10 @@ import io
 app = Flask(__name__, static_url_path='', static_folder='frontend/build')
 CORS(app)
 
-@app.route("/", defaults={'path':''})
-def entry(path):
-    return send_from_directory(app.static_folder,'index.html')
+@app.route("/")
+def entry():
+    with open('frontend/build/index.html') as f:
+        return f.read()
 
 @app.route("/image", methods=['POST'])
 def model():
