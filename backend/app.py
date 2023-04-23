@@ -14,16 +14,6 @@ def entry():
     with open('frontend/build/index.html') as f:
         return f.read()
 
-@app.route("/static/js/main.0976a078.js")
-def entry():
-    with open('frontend/build/static/js/main.0976a078.js') as f:
-        return f.read()
-    
-@app.route("/static/css/main.0976a078.js")
-def entry():
-    with open('frontend/build/static/css/main.bd405a6d.css') as f:
-        return f.read()
-
 
 @app.route("/image", methods=['POST'])
 def model():
